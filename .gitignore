@@ -1,0 +1,19 @@
+# Binaries
+bin/
+*debug*bin
+xorg
+xorg-cli
+
+# Env variables
+.envrc
+.env
+
+# IDEs
+.idea/
+*.iml
+.DS_Store
+.vscode/
+
+*.out
+
+debug.test
