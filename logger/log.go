@@ -3,6 +3,7 @@
 package logger
 
 import (
+	"bytes"
 	"log/syslog"
 	"os"
 	"strings"
@@ -27,6 +28,7 @@ const (
 // ContextLogger provides context for logrus logger
 type ContextLogger struct {
 	logger  *logrus.Logger
+	buf     *bytes.Buffer
 	context Context
 }
 
@@ -225,6 +227,11 @@ func (l ContextLogger) InvalidRequestBody(level logrus.Level, caller string, err
 	l.log(level, ctx, "invalid request body")
 }
 
+// Output it's to get the logger as string
+func (l ContextLogger) Output() string {
+	return l.buf.String()
+}
+
 /******************************************************************************/
 /* AUXILIARY FUNCTIONS                                                        */
 /******************************************************************************/
@@ -248,6 +255,7 @@ func getLogrusLevel(logLevel string) logrus.Level {
 
 func (l ContextLogger) prepareContext(context Context, customFields logrus.Fields) logrus.Fields {
 	fields := logrus.Fields{}
+	l.logger.Out = l.buf
 	for k, v := range customFields {
 		fields[k] = v
 	}
