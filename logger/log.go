@@ -51,6 +51,7 @@ func NewContextLogger(application, logLevel string, format Format) *ContextLogge
 	contextLogger := &ContextLogger{
 		logger:  &logger,
 		context: context,
+		buf:     new(bytes.Buffer),
 	}
 
 	contextLogger.SetLogFormat(format)
@@ -255,8 +256,6 @@ func getLogrusLevel(logLevel string) logrus.Level {
 
 func (l ContextLogger) prepareContext(context Context, customFields logrus.Fields) logrus.Fields {
 	fields := logrus.Fields{}
-	l.logger.Out = l.buf
-	l.logger.SetFormatter(&logrus.TextFormatter{DisableTimestamp: true})
 	for k, v := range customFields {
 		fields[k] = v
 	}
