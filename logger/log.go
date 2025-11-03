@@ -62,11 +62,14 @@ func NewContextLogger(application, logLevel string, format Format) *ContextLogge
 
 // WithContext provide context for log entries
 func (l ContextLogger) WithContext(level logrus.Level, caller, entry string, context Context, err error) {
+	field := logrus.Fields{"method": caller}
+	for k, v := range context {
+		field[k] = v
+	}
+
 	fields := l.prepareContext(
 		l.context,
-		logrus.Fields{
-			"method": caller,
-		},
+		field,
 	)
 
 	if err != nil {
@@ -74,7 +77,7 @@ func (l ContextLogger) WithContext(level logrus.Level, caller, entry string, con
 	}
 
 	ctx := l.logger.WithFields(
-		logrus.Fields(fields),
+		fields,
 	)
 
 	l.log(level, ctx, entry)
