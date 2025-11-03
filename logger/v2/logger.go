@@ -13,6 +13,9 @@ const (
 	Role       = "Role"
 	EventID    = "EventID"
 	AlarmID    = "AlarmID"
+	Latency    = "LatencyMS"
+	Method     = "Method"
+	Path       = "Path"
 )
 
 // Logger ...
