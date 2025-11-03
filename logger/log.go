@@ -236,15 +236,6 @@ func (l ContextLogger) Output() string {
 	return l.buf.String()
 }
 
-func (l ContextLogger) GetContext(ctxName string) interface{} {
-	ctx := l.context
-	var result interface{}
-	if v := ctx[ctxName]; v != nil {
-		result = ctx[ctxName]
-	}
-	return result
-}
-
 /******************************************************************************/
 /* AUXILIARY FUNCTIONS                                                        */
 /******************************************************************************/
