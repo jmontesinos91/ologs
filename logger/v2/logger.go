@@ -16,6 +16,7 @@ const (
 	Latency    = "LatencyMS"
 	Method     = "Method"
 	Path       = "Path"
+	IMEI       = "Imei"
 )
 
 // Logger ...
